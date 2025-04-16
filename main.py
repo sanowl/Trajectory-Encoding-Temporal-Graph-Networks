@@ -1,6 +1,6 @@
 
 from __future__ import annotations
-import math, random, itertools
+import math, itertools
 from collections import defaultdict
 from typing import Tuple, List, Dict, NamedTuple, Optional
 
@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch import Tensor
+import secrets
 
 class LearnableID(nn.Module):
     def __init__(self, d: int, init_nodes: int = 0):
@@ -270,8 +271,8 @@ if __name__ == "__main__":
         for _ in range(num_batches):
             batch=[]
             for _ in range(bs):
-                s,d = random.randint(0,1999), random.randint(0,1999)
-                t   = random.random()*1000
+                s,d = secrets.SystemRandom().randint(0,1999), secrets.SystemRandom().randint(0,1999)
+                t   = secrets.SystemRandom().random()*1000
                 e   = torch.randn(cfg["e_dim"])
                 batch.append((s,d,t,e))
             # sort by time like real pre‑processing
